@@ -9,10 +9,9 @@ const HttpStatus = require("http-status");
 
 const app = new Koa();
 
-//These are the new change
-//const static_pages = new Koa();
-//static_pages.use(serve(__dirname + "/portal/build")); //serve the build directory
-//app.use(mount("/", static_pages));
+const static_pages = new Koa();
+static_pages.use(serve(__dirname + "/portal/build")); //serve the build directory
+app.use(mount("/", static_pages));
 
 const PORT = process.env.PORT || 3000;
 
@@ -24,10 +23,10 @@ app.use(cors());
 const router = new Router();
 
 router.get("/book",async (ctx,next)=>{
-	  const books = ["Speaking javascript", "Fluent Python", "Pro Python", "The Go programming language"];
-	  ctx.status = HttpStatus.OK;
-	  ctx.body = books;
-	  await next();
+    const books = ["Speaking javascript", "Fluent Python", "Pro Python", "The Go programming language"];
+    ctx.status = HttpStatus.OK;
+    ctx.body = books;
+    await next();
 });
 
 app.use(router.routes()).use(router.allowedMethods());
