@@ -1,4 +1,3 @@
-
 load("@build_bazel_rules_nodejs//:index.bzl", "js_library", "nodejs_binary")
 load("@io_bazel_rules_docker//nodejs:image.bzl", "nodejs_image")
 
@@ -13,16 +12,16 @@ package(default_visibility = [":javascript_visibility"])
 
 js_library(
     name = "server_lib",
-    srcs = [ "server.js" ],
+    srcs = ["server.js"],
     deps = [
+        "@npm//http-status",
         "@npm//koa",
         "@npm//koa-bodyparser",
-        "@npm//koa-router",
-        "@npm//koa-logger",
         "@npm//koa-cors",
-        "@npm//koa-static",
+        "@npm//koa-logger",
         "@npm//koa-mount",
-        "@npm//http-status",
+        "@npm//koa-router",
+        "@npm//koa-static",
     ],
 )
 
