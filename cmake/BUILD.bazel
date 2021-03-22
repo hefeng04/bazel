@@ -9,7 +9,7 @@ filegroup(
 # Building all targets with the `srcs` CMake project will fail.
 # this example demonstrates how users can avoid unnecessary targets
 cmake(
-    name = "cmake_with_target",
+    name = "cmake",
     build_args = [
         "--verbose",
         "--",  # <- Pass remaining options to the native tool.
