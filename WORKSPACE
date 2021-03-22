@@ -71,3 +71,25 @@ load(
 )
 
 nodejs_image_repositories()
+
+# Foreign cc
+# Rule repository, note that it's recommended to use a pinned commit to a released version of the rules
+git_repository(
+   name = "rules_foreign_cc",
+   commit = "07e1645dcc6c013b954d26b826fcd41f85585e55",
+   remote = "https://github.com/bazelbuild/rules_foreign_cc",
+)
+
+load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
+
+# This sets up some common toolchains for building targets. For more details, please see
+# https://github.com/bazelbuild/rules_foreign_cc/tree/main/docs#rules_foreign_cc_dependencies
+rules_foreign_cc_dependencies()
+
+_ALL_CONTENT = """\
+filegroup(
+    name = "all_srcs",
+    srcs = glob(["**"]),
+    visibility = ["//visibility:public],
+)
+"""
