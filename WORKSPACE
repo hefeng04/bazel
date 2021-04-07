@@ -74,9 +74,10 @@ nodejs_image_repositories()
 
 # Foreign cc
 # Rule repository, note that it's recommended to use a pinned commit to a released version of the rules
+# version 0.2.0
 git_repository(
    name = "rules_foreign_cc",
-   commit = "07e1645dcc6c013b954d26b826fcd41f85585e55",
+   commit = "d02390f1363cdd2ba5a7f7907a481503d483d569",
    remote = "https://github.com/bazelbuild/rules_foreign_cc",
 )
 
