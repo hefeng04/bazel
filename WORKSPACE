@@ -90,7 +90,7 @@ _ALL_CONTENT = """\
 filegroup(
     name = "all_srcs",
     srcs = glob(["**"]),
-    visibility = ["//visibility:public],
+    visibility = ["//visibility:public"],
 )
 """
 
@@ -112,3 +112,21 @@ jsonnet_go_repositories()
 load("@jsonnet_go//bazel:deps.bzl", "jsonnet_go_dependencies")
 
 jsonnet_go_dependencies()
+
+
+# OpenBLAS
+# OpenBLAS source code repository
+http_archive(
+   name = "openblas",
+   build_file_content = _ALL_CONTENT,
+   strip_prefix = "OpenBLAS-0.3.2",
+   urls = ["https://github.com/xianyi/OpenBLAS/archive/v0.3.2.tar.gz"],
+)
+
+# Eigen source code repository
+http_archive(
+   name = "eigen",
+   build_file_content = _ALL_CONTENT,
+   strip_prefix = "eigen-git-mirror-3.3.5",
+   urls = ["https://github.com/eigenteam/eigen-git-mirror/archive/3.3.5.tar.gz"],
+)
