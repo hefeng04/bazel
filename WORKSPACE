@@ -29,7 +29,6 @@ go_register_toolchains(version = "1.16")
 
 gazelle_dependencies()
 
-
 # Nodejs related
 http_archive(
     name = "build_bazel_rules_nodejs",
@@ -44,7 +43,6 @@ yarn_install(
     package_json = "//javascript:package.json",
     yarn_lock = "//javascript:yarn.lock",
 )
-
 
 # Docker related
 http_archive(
@@ -76,9 +74,9 @@ nodejs_image_repositories()
 # Rule repository, note that it's recommended to use a pinned commit to a released version of the rules
 # version 0.2.0
 git_repository(
-   name = "rules_foreign_cc",
-   commit = "d02390f1363cdd2ba5a7f7907a481503d483d569",
-   remote = "https://github.com/bazelbuild/rules_foreign_cc",
+    name = "rules_foreign_cc",
+    commit = "d02390f1363cdd2ba5a7f7907a481503d483d569",
+    remote = "https://github.com/bazelbuild/rules_foreign_cc",
 )
 
 load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
@@ -102,6 +100,7 @@ http_archive(
     strip_prefix = "rules_jsonnet-0.3.0",
     urls = ["https://github.com/bazelbuild/rules_jsonnet/archive/0.3.0.tar.gz"],
 )
+
 load("@io_bazel_rules_jsonnet//jsonnet:jsonnet.bzl", "jsonnet_repositories")
 
 jsonnet_repositories()
@@ -114,20 +113,36 @@ load("@jsonnet_go//bazel:deps.bzl", "jsonnet_go_dependencies")
 
 jsonnet_go_dependencies()
 
-
 # OpenBLAS
 # OpenBLAS source code repository
 http_archive(
-   name = "openblas",
-   build_file_content = _ALL_CONTENT,
-   strip_prefix = "OpenBLAS-0.3.2",
-   urls = ["https://github.com/xianyi/OpenBLAS/archive/v0.3.2.tar.gz"],
+    name = "openblas",
+    build_file_content = _ALL_CONTENT,
+    strip_prefix = "OpenBLAS-0.3.2",
+    urls = ["https://github.com/xianyi/OpenBLAS/archive/v0.3.2.tar.gz"],
 )
 
 # Eigen source code repository
 http_archive(
-   name = "eigen",
-   build_file_content = _ALL_CONTENT,
-   strip_prefix = "eigen-git-mirror-3.3.5",
-   urls = ["https://github.com/eigenteam/eigen-git-mirror/archive/3.3.5.tar.gz"],
+    name = "eigen",
+    build_file_content = _ALL_CONTENT,
+    strip_prefix = "eigen-git-mirror-3.3.5",
+    urls = ["https://github.com/eigenteam/eigen-git-mirror/archive/3.3.5.tar.gz"],
+)
+
+# buildifier
+http_archive(
+    name = "com_google_protobuf",
+    strip_prefix = "protobuf-master",
+    urls = ["https://github.com/protocolbuffers/protobuf/archive/master.zip"],
+)
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+protobuf_deps()
+
+http_archive(
+    name = "com_github_bazelbuild_buildtools",
+    strip_prefix = "buildtools-master",
+    url = "https://github.com/bazelbuild/buildtools/archive/master.zip",
 )
