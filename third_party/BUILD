@@ -26,7 +26,10 @@ cmake(
        "BLA_VENDOR": "OpenBLAS",
        "BLAS_LIBRARIES": "$EXT_BUILD_DEPS/openblas/lib/libopenblas.a",
    },
-   headers_only = True,
+   out_headers_only = True,
+   generate_args = [
+       "-DINCLUDE_INSTALL_DIR=eigen/include",
+   ],
    lib_source = "@eigen//:all_srcs",
    # Dependency on other cmake_external rule; can also depend on cc_import, cc_library rules
    deps = [":openblas"],
@@ -36,4 +39,4 @@ cc_binary(
   name = "hello_eigen",
   srcs = ["hello_eigen.cc"],
   deps = [":eigen"],
-		)
+)
