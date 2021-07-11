@@ -1,14 +1,22 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 
+package_group(
+    name = "go_visibility",
+    packages = [
+        "//go/...",
+    ],
+)
+
 go_library(
     name = "go_lib",
     srcs = ["main.go"],
     importpath = "github.com/example/project/go",
-    visibility = ["//visibility:private"],
+    visibility = [":go_visibility"],
 )
 
 go_binary(
     name = "go",
     embed = [":go_lib"],
-    visibility = ["//visibility:public"],
+    data = ["//go/portal:build"],
+    visibility = ["go_visibility"],
 )
