@@ -20,14 +20,24 @@ http_archive(
     ],
 )
 
+http_archive(
+    name = "build_stack_rules_proto",
+    urls = ["https://github.com/stackb/rules_proto/archive/b2913e6340bcbffb46793045ecac928dcf1b34a5.tar.gz"],
+    strip_prefix = "rules_proto-b2913e6340bcbffb46793045ecac928dcf1b34a5",
+)
+
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 
 go_rules_dependencies()
 
 go_register_toolchains(version = "1.16")
 
 gazelle_dependencies()
+
+load("@build_stack_rules_proto//github.com/grpc-ecosystem/grpc-gateway:deps.bzl", "gateway_grpc_compile")
+
+gateway_grpc_compile()
 
 # Nodejs related
 http_archive(
@@ -59,6 +69,22 @@ load(
 
 container_repositories()
 
+# googleapis
+git_repository(
+    name = "com_google_googleapis",
+    remote = "https://github.com/googleapis/googleapis.git",
+    commit = "8de886fe5447d097e7f51c20aed40738f7eb68e2",
+)
+
+load("@com_google_googleapis//:repository_rules.bzl", "switched_rules_by_language")
+
+switched_rules_by_language(
+    name = "com_google_googleapis_imports",
+    grpc = True,
+    go = True,
+)
+
+
 load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
 
 container_deps()
@@ -80,6 +106,13 @@ git_repository(
 )
 
 load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
+
+# glog
+go_repository(
+    name = "com_github_golang_glog",
+    importpath = "github.com/golang/glog",
+    commit = "23def4e6c14b4da8ac2ed8007337bc5eb5007998",
+)
 
 # This sets up some common toolchains for building targets. For more details, please see
 # https://github.com/bazelbuild/rules_foreign_cc/tree/main/docs#rules_foreign_cc_dependencies
