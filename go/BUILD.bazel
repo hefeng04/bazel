@@ -16,7 +16,7 @@ go_library(
 
 go_binary(
     name = "go",
-    embed = [":go_lib"],
     data = ["//go/portal:build"],
+    embed = [":go_lib"],
     visibility = ["go_visibility"],
 )

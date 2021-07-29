@@ -107,6 +107,15 @@ git_repository(
 
 load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
 
+################################# Go repository #########################
+# grpc
+go_repository(
+    name = "org_golang_google_grpc",
+    importpath = "google.golang.org/grpc",
+    sum = "h1:WWfz2L6IIiT1YYTgy/lX1WGoM4gwTOhvrVMs2B8KOt4=",
+    version = "v1.38.1",
+)
+
 # glog
 go_repository(
     name = "com_github_golang_glog",
