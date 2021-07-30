@@ -42,6 +42,7 @@ service EchoService {
 	rpc Echo(SimpleMessage) returns (SimpleMessage) {
 		option (google.api.http) = {
 			post: "/v1/example/echo/{id}"
+			body: "*"
 			additional_bindings {
 				get: "/v1/example/echo/{id}/{num}"
 			}
