@@ -10,9 +10,9 @@ load("@grpc_ecosystem_grpc_gateway//protoc-gen-openapiv2:defs.bzl", "protoc_gen_
 go_proto_library(
     name = "echoservice_go_proto",
     compilers = [
-		    "@io_bazel_rules_go//proto:go_grpc",
-	"@grpc_ecosystem_grpc_gateway//protoc-gen-grpc-gateway:go_gen_grpc_gateway",
-		    ],
+        "@io_bazel_rules_go//proto:go_grpc",
+        "@grpc_ecosystem_grpc_gateway//protoc-gen-grpc-gateway:go_gen_grpc_gateway",
+    ],
     importpath = "go/grpcgateway/proto/echo",
     proto = ":echo_service_proto",
     visibility = ["//visibility:public"],

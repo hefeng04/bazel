@@ -1,5 +1,5 @@
 
-package echo
+package echoservice
 
 import (
 	"context"
