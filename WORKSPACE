@@ -20,12 +20,6 @@ http_archive(
     ],
 )
 
-http_archive(
-    name = "build_stack_rules_proto",
-    urls = ["https://github.com/stackb/rules_proto/archive/b2913e6340bcbffb46793045ecac928dcf1b34a5.tar.gz"],
-    strip_prefix = "rules_proto-b2913e6340bcbffb46793045ecac928dcf1b34a5",
-)
-
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 
@@ -35,9 +29,6 @@ go_register_toolchains(version = "1.16")
 
 gazelle_dependencies()
 
-load("@build_stack_rules_proto//github.com/grpc-ecosystem/grpc-gateway:deps.bzl", "gateway_grpc_compile")
-
-gateway_grpc_compile()
 
 # Nodejs related
 http_archive(
@@ -62,6 +53,13 @@ http_archive(
     urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.15.0/rules_docker-v0.15.0.tar.gz"],
 )
 
+# Docker related
+http_archive(
+    name = "grpc_ecosystem_grpc_gateway",
+    strip_prefix = "grpc-gateway-2.5.0",
+    urls = ["https://github.com/grpc-ecosystem/grpc-gateway/archive/refs/tags/v2.5.0.tar.gz"],
+)
+
 load(
     "@io_bazel_rules_docker//repositories:repositories.bzl",
     container_repositories = "repositories",
@@ -80,7 +78,6 @@ load("@com_google_googleapis//:repository_rules.bzl", "switched_rules_by_languag
 
 switched_rules_by_language(
     name = "com_google_googleapis_imports",
-    grpc = True,
     go = True,
 )
 
@@ -122,6 +119,13 @@ go_repository(
     importpath = "github.com/golang/glog",
     commit = "23def4e6c14b4da8ac2ed8007337bc5eb5007998",
 )
+
+# grpc-gateway
+# go_repository(
+#     name = "com_github_grpc_ecosystem_grpc_gateway",
+#     importpath = "github.com/grpc-ecosystem/grpc-gateway",
+#     commit = "457fc2b6e5dbd65d0a5d8d110fe0cd4778e816d0",
+# )
 
 # This sets up some common toolchains for building targets. For more details, please see
 # https://github.com/bazelbuild/rules_foreign_cc/tree/main/docs#rules_foreign_cc_dependencies
@@ -172,19 +176,17 @@ http_archive(
     urls = ["https://github.com/eigenteam/eigen-git-mirror/archive/3.3.5.tar.gz"],
 )
 
-# buildifier
+
 http_archive(
     name = "com_google_protobuf",
-    strip_prefix = "protobuf-master",
-    urls = ["https://github.com/protocolbuffers/protobuf/archive/master.zip"],
+    strip_prefix = "protobuf-3.17.3",
+    # latest, as of 2020-02-21
+    urls = [
+        "https://mirror.bazel.build/github.com/protocolbuffers/protobuf/archive/v3.17.3.tar.gz",
+        "https://github.com/protocolbuffers/protobuf/archive/v3.17.3.tar.gz",
+    ],
 )
 
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 
 protobuf_deps()
-
-http_archive(
-    name = "com_github_bazelbuild_buildtools",
-    strip_prefix = "buildtools-master",
-    url = "https://github.com/bazelbuild/buildtools/archive/master.zip",
-)
