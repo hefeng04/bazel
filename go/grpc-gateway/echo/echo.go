@@ -4,13 +4,11 @@ package echoservice
 import (
 	"context"
 	"net"
-	"net/http"
 
 	"github.com/golang/glog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
-	myecho "go/grpcgateway/proto/echo"
-	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	myecho "go/grpcgateway/proto/echoservice"
 )
 
 // Implements of EchoServiceServer
@@ -63,30 +61,4 @@ func Run(ctx context.Context, network, address string) error {
 		<-ctx.Done()
 	}()
 	return s.Serve(l)
-}
-
-func RunInProcessGateway(ctx context.Context, addr string, opts ...runtime.ServeMuxOption) error {
-	mux := runtime.NewServeMux(opts...)
-
-	myecho.RegisterEchoServiceHandlerServer(ctx, mux, newEchoServer())
-
-	s := &http.Server{
-		Addr:    addr,
-		Handler: mux,
-	}
-
-	go func() {
-		<-ctx.Done()
-		glog.Infof("Shutting down the http gateway server")
-		if err := s.Shutdown(context.Background()); err != nil {
-			glog.Errorf("Failed to shutdown http gateway server: %v", err)
-		}
-	}()
-
-	if err := s.ListenAndServe(); err != http.ErrServerClosed {
-		glog.Errorf("Failed to listen and serve: %v", err)
-		return err
-	}
-	return nil
-
 }
