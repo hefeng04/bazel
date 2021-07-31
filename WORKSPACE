@@ -120,13 +120,6 @@ go_repository(
     commit = "23def4e6c14b4da8ac2ed8007337bc5eb5007998",
 )
 
-# grpc-gateway
-# go_repository(
-#     name = "com_github_grpc_ecosystem_grpc_gateway",
-#     importpath = "github.com/grpc-ecosystem/grpc-gateway",
-#     commit = "457fc2b6e5dbd65d0a5d8d110fe0cd4778e816d0",
-# )
-
 # This sets up some common toolchains for building targets. For more details, please see
 # https://github.com/bazelbuild/rules_foreign_cc/tree/main/docs#rules_foreign_cc_dependencies
 rules_foreign_cc_dependencies()
