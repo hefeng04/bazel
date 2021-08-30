@@ -16,6 +16,9 @@ int main(int argc, char** argv) {
   if (argc > 1) {
     who = argv[1];
   }
+  #ifdef FAULT_INJECTOR
+  std::cout << "hehe, it is fault injector" << std::endl;
+  #endif
   std::cout << get_greet(who) << std::endl;
   print_localtime();
   return 0;
