@@ -11,6 +11,9 @@ proto_library(
     srcs = glob(
         ["*.proto"],
     ),
+    deps = [
+        "//python:python_protos",
+    ],
 )
 
 py_proto_library(
@@ -18,7 +21,7 @@ py_proto_library(
     srcs = glob(
         ["*.proto"],
     ),
-    tags = [
-        "manual",
+    deps = [
+        "//python:python_py_protos",
     ],
 )

@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package python;
+
+message Deps {
+  string deps = 1;
+}
