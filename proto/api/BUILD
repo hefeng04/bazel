@@ -12,6 +12,7 @@ proto_library(
         ["*.proto"],
     ),
     deps = [
+        "//proto/log:event_protos",
         "//python:python_protos",
     ],
 )
@@ -23,5 +24,6 @@ py_proto_library(
     ),
     deps = [
         "//python:python_py_protos",
+        "//proto/log:event_py_protos",
     ],
 )

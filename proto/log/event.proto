@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package event;
+package log;
 
 message Event {
   string event = 1;

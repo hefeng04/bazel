@@ -2,9 +2,11 @@ syntax = "proto3";
 
 package api;
 
+import "proto/log/event.proto";
 import "python/deps.proto";
 
 message Hello {
   string message = 1;
   python.Deps deps = 2;
+  log.Event event = 3;
 }
